@@ -1,0 +1,1154 @@
+/* =======================================
+   DK PORTFOLIO
+======================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #050505;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+section {
+    padding: 120px 8%;
+}
+
+
+/* =======================================
+   NAV
+======================================= */
+
+nav {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+    height: 60px !important;
+
+    padding: 0 8% !important;
+
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    z-index: 1000 !important;
+
+    background: #050505 !important;
+
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 6px;
+}
+
+.menu {
+    display: flex;
+    gap: 40px;
+}
+
+.menu a {
+    color: #d4d4d4;
+    transition: .35s;
+}
+
+.menu a:hover {
+    color: #fff;
+}
+
+
+/* =======================================
+   HERO
+======================================= */
+
+.hero {
+    position: relative !important;
+
+    width: 100% !important;
+
+    /*
+       Desktop :
+       on garde une hauteur raisonnable
+       mais on ne centre plus verticalement
+       le contenu, pour éviter qu'il passe
+       sous la navbar.
+    */
+    height: auto !important;
+    min-height: 0 !important;
+
+    display: flex !important;
+
+    align-items: flex-start !important;
+
+    padding: 190px 8% 60px !important;
+
+    margin: 0 !important;
+
+    background: #050505 !important;
+
+    overflow: visible !important;
+}
+
+.hero video {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: 0;
+}
+
+.overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+        rgba(5, 5, 5, .45),
+        rgba(5, 5, 5, .92)
+    );
+
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative !important;
+
+    z-index: 5 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    max-width: 760px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    transform: none !important;
+}
+
+.eyebrow {
+    color: #9b9b9b;
+
+    letter-spacing: 8px;
+
+    margin-bottom: 25px;
+
+    font-size: 13px;
+}
+
+.hero h1 {
+    position: relative !important;
+
+    z-index: 5 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+
+    font-size: 92px !important;
+
+    line-height: 1 !important;
+
+    font-weight: 800 !important;
+
+    margin: 0 0 28px !important;
+
+    padding: 0 !important;
+
+    top: auto !important;
+    transform: none !important;
+}
+
+.subtitle {
+    display: block !important;
+
+    width: 100% !important;
+
+    font-size: 22px;
+
+    line-height: 1.3;
+
+    color: #cfcfcf;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+.subtitle-link {
+    color: #cfcfcf;
+
+    transition: .25s;
+}
+
+.subtitle-link:hover {
+    color: #fff;
+}
+
+.scroll-indicator {
+    margin-top: 70px;
+
+    display: inline-flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 30px;
+
+    animation: float 2s infinite;
+}
+
+.scroll-indicator span {
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    color: #9b9b9b;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+
+/* =======================================
+   SECTION TITLE
+======================================= */
+
+.section-title {
+    font-size: 13px;
+
+    letter-spacing: 5px;
+
+    color: #8b8b8b;
+
+    text-transform: uppercase;
+
+    margin: 0 0 40px;
+}
+
+
+/* =======================================
+   WORK / PROJECTS
+======================================= */
+
+#projects,
+#motion-posters {
+    width: 100% !important;
+
+    padding: 60px 8% 80px !important;
+
+    margin: 0 !important;
+
+    background: #050505 !important;
+}
+
+#projects .section-title,
+#motion-posters .section-title {
+    margin-top: 0 !important;
+
+    margin-bottom: 40px !important;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 30px;
+}
+
+.project {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+}
+
+.project img {
+    transition: .45s;
+}
+
+.project:hover img {
+    transform: scale(1.08);
+}
+
+.project-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    padding: 30px;
+
+    background: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, .82)
+    );
+}
+
+/* Ratio uniforme + recadrage sur les 18 premieres vignettes,
+   pour eviter les hauteurs inegales entre formats cinema/16:9.
+   Les 7 dernieres vignettes gardent leur comportement d'origine. */
+.grid .project:nth-child(-n+18) {
+    aspect-ratio: 16 / 9;
+}
+
+.grid .project:nth-child(-n+18) img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center;
+}
+
+.project-overlay h3 {
+    font-size: 24px;
+}
+
+.project-overlay span {
+    margin-top: 10px;
+
+    color: #ddd;
+}
+
+
+/* =======================================
+   FEATURED PROJECT
+======================================= */
+
+.featured-card {
+    display: grid;
+
+    grid-template-columns: 1.3fr 1fr;
+
+    gap: 60px;
+
+    align-items: center;
+}
+
+.featured-image {
+    overflow: hidden;
+
+    border-radius: 18px;
+}
+
+.featured-image img {
+    transition: .6s;
+}
+
+.featured-image:hover img {
+    transform: scale(1.05);
+}
+
+.featured-info h2 {
+    font-size: 54px;
+
+    margin-bottom: 20px;
+}
+
+.featured-info p {
+    color: #bcbcbc;
+
+    line-height: 1.8;
+
+    margin-bottom: 35px;
+}
+
+.featured-info a {
+    border-bottom: 1px solid white;
+
+    padding-bottom: 6px;
+}
+
+
+/* =======================================
+   ABOUT
+======================================= */
+
+#about,
+.about {
+    width: 100%;
+
+    text-align: center;
+
+    padding-top: 60px;
+    padding-bottom: 35px;
+
+    background: #050505;
+}
+
+.about-content {
+    width: 100%;
+
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+
+/* =======================================
+   PROFILE PHOTO
+======================================= */
+
+#about .about-content > img.profile-photo {
+    display: block;
+
+    width: 180px !important;
+    height: 180px !important;
+
+    min-width: 180px !important;
+    min-height: 180px !important;
+
+    max-width: 180px !important;
+    max-height: 180px !important;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 50%;
+
+    margin: 0 auto 35px !important;
+}
+
+
+/* =======================================
+   ABOUT TEXT
+======================================= */
+
+.about-content h2 {
+    font-size: 44px;
+
+    line-height: 1.15;
+
+    margin-bottom: 25px;
+
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+.about-content p {
+    color: #c4c4c4;
+
+    line-height: 1.9;
+
+    margin-bottom: 22px;
+
+    text-align: center;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* =======================================
+   CONTACT
+======================================= */
+
+#contact,
+.contact {
+    width: 100%;
+
+    text-align: center;
+
+    padding-top: 0;
+    padding-bottom: 120px;
+
+    background: #050505;
+}
+
+.contact h2 {
+    font-size: 36px;
+
+    line-height: 1.1;
+
+    margin-bottom: 25px;
+}
+
+.contact p {
+    color: #cfcfcf;
+
+    margin-bottom: 40px;
+}
+
+
+/* =======================================
+   CONTACT FORM
+======================================= */
+
+.contact-form {
+    width: 100%;
+
+    max-width: 580px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    text-align: left;
+}
+
+.contact-form label {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    color: #dcdcdc;
+
+    font-size: 14px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+
+    background: #080808;
+
+    border: 1px solid #333;
+
+    color: #fff;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 16px;
+
+    padding: 16px;
+
+    border-radius: 0;
+
+    outline: none;
+
+    transition:
+        border-color .3s,
+        background .3s;
+}
+
+.contact-form input {
+    min-height: 54px;
+}
+
+.contact-form textarea {
+    min-height: 160px;
+
+    resize: vertical;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #666;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #777;
+
+    background: #0b0b0b;
+}
+
+.contact-form button {
+    width: 100%;
+
+    min-height: 56px;
+
+    border: 1px solid #fff;
+
+    background: #fff;
+
+    color: #000;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 16px 20px;
+
+    text-align: center;
+
+    transition: .35s;
+}
+
+.contact-form button:hover {
+    background: transparent;
+
+    color: #fff;
+}
+
+.form-success,
+.form-error {
+    display: none;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-top: 5px;
+}
+
+.form-success.show,
+.form-error.show {
+    display: block;
+}
+
+
+/* =======================================
+   FOOTER
+======================================= */
+
+footer {
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: #777;
+
+    background: #050505;
+}
+
+
+/* =======================================
+   VIDEO MODAL
+======================================= */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.video-modal {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 60px 8%;
+
+    background: rgba(0, 0, 0, .92);
+
+    z-index: 2000;
+}
+
+.video-modal.active {
+    display: flex;
+}
+
+.video-modal-inner {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 1100px;
+}
+
+.video-modal-inner video {
+    width: 100%;
+
+    max-height: 80vh;
+
+    display: block;
+
+    background: #000;
+
+    border-radius: 12px;
+}
+
+.video-modal-close {
+    position: absolute;
+
+    top: -46px;
+
+    right: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #fff;
+
+    font-size: 32px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: .25s;
+}
+
+.video-modal-close:hover {
+    color: #9b9b9b;
+}
+
+
+/* =======================================
+   TABLET
+======================================= */
+
+@media (max-width: 900px) {
+
+    .hero {
+        height: auto !important;
+
+        min-height: 0 !important;
+
+        padding: 120px 8% 50px !important;
+    }
+
+    .hero h1 {
+        font-size: 54px !important;
+
+        margin-bottom: 45px !important;
+    }
+
+    .subtitle {
+        margin-top: 0 !important;
+    }
+
+    #projects {
+        padding-top: 35px !important;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .featured-card {
+        grid-template-columns: 1fr;
+    }
+
+    .menu {
+        display: flex;
+    }
+}
+
+
+/* =======================================
+   MOBILE
+======================================= */
+
+@media (max-width: 600px) {
+
+    /* -----------------------------------
+       NAV
+    ----------------------------------- */
+
+    nav {
+        position: fixed !important;
+
+        top: 0 !important;
+        left: 0 !important;
+
+        width: 100% !important;
+
+        height: auto !important;
+
+        padding: 28px 8% !important;
+
+        display: flex !important;
+
+        justify-content: space-between !important;
+
+        align-items: center !important;
+
+        background: #050505 !important;
+
+        z-index: 1000 !important;
+
+        backdrop-filter: none !important;
+
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .logo {
+        font-size: 20px;
+
+        letter-spacing: 6px;
+    }
+
+    .menu {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: flex-end;
+
+        margin-left: auto;
+
+        gap: 0;
+    }
+
+    .menu a {
+        display: block;
+
+        font-size: 18px;
+
+        color: #fff;
+    }
+
+
+    /* -----------------------------------
+       HERO MOBILE
+       On conserve la version qui
+       fonctionnait sur iPhone.
+    ----------------------------------- */
+
+    .hero {
+        width: 100% !important;
+
+        min-height: 0 !important;
+
+        height: auto !important;
+
+        padding: 150px 8% 40px !important;
+
+        margin: 0 !important;
+
+        align-items: flex-start;
+
+        background: #050505 !important;
+    }
+
+    .hero-content {
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        text-align: center;
+
+        transform: none !important;
+    }
+
+    .eyebrow {
+        font-size: 12px;
+
+        letter-spacing: 7px;
+
+        margin-bottom: 45px;
+    }
+
+    .hero h1 {
+        width: 100% !important;
+
+        font-size: 54px !important;
+
+        line-height: .98 !important;
+
+        margin: 0 0 38px !important;
+
+        padding: 0 !important;
+
+        text-align: center;
+
+        transform: none !important;
+    }
+
+    .subtitle {
+        width: 100% !important;
+
+        font-size: 22px;
+
+        line-height: 1.3;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------
+       WORK MOBILE
+    ----------------------------------- */
+
+    #projects {
+        width: 100% !important;
+
+        padding: 45px 8% 70px !important;
+
+        margin: 0 !important;
+
+        background: #050505 !important;
+    }
+
+    #projects .section-title {
+        margin-top: 0 !important;
+
+        margin-bottom: 40px !important;
+    }
+
+
+    /* -----------------------------------
+       ABOUT MOBILE
+    ----------------------------------- */
+
+    #about,
+    .about {
+        width: 100%;
+
+        padding: 35px 8% 25px;
+
+        text-align: center;
+
+        background: #050505;
+    }
+
+    .about-content {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0 auto;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------
+       PHOTO MOBILE
+    ----------------------------------- */
+
+    #about .about-content > img.profile-photo {
+        display: block;
+
+        width: 88px !important;
+        height: 88px !important;
+
+        min-width: 88px !important;
+        min-height: 88px !important;
+
+        max-width: 88px !important;
+        max-height: 88px !important;
+
+        aspect-ratio: 1 / 1;
+
+        object-fit: cover;
+
+        object-position: center;
+
+        border-radius: 50%;
+
+        margin: 0 auto 30px !important;
+    }
+
+
+    /* -----------------------------------
+       ABOUT TITLE MOBILE
+    ----------------------------------- */
+
+    .about-content h2 {
+        width: 100%;
+
+        font-size: 42px;
+
+        line-height: 1.12;
+
+        margin-bottom: 30px;
+
+        text-align: center;
+
+        white-space: normal;
+    }
+
+
+    /* -----------------------------------
+       ABOUT TEXT MOBILE
+    ----------------------------------- */
+
+    .about-content p {
+        width: 100%;
+
+        font-size: 20px;
+
+        line-height: 1.8;
+
+        margin-bottom: 25px;
+
+        text-align: center;
+    }
+
+    .about-content p:last-child {
+        margin-bottom: 0;
+    }
+
+
+    /* -----------------------------------
+       CONTACT MOBILE
+    ----------------------------------- */
+
+    #contact,
+    .contact {
+        width: 100%;
+
+        padding: 0 8% 70px;
+
+        text-align: center;
+
+        background: #050505;
+    }
+
+    .contact h2 {
+        font-size: 48px;
+
+        line-height: 1.1;
+
+        margin-bottom: 25px;
+
+        text-align: center;
+    }
+
+    .contact p {
+        font-size: 20px;
+
+        line-height: 1.5;
+
+        margin-bottom: 40px;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------
+       CONTACT FORM MOBILE
+    ----------------------------------- */
+
+    .contact-form {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0 auto;
+
+        gap: 25px;
+
+        text-align: left;
+    }
+
+    .contact-form label {
+        font-size: 18px;
+
+        gap: 12px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+
+        font-size: 18px;
+
+        padding: 18px;
+    }
+
+    .contact-form input {
+        min-height: 64px;
+    }
+
+    .contact-form textarea {
+        min-height: 180px;
+    }
+
+    .contact-form button {
+        min-height: 60px;
+
+        font-size: 15px;
+    }
+
+
+    /* -----------------------------------
+       FOOTER MOBILE
+    ----------------------------------- */
+
+    footer {
+        padding: 35px 20px;
+
+        background: #050505;
+    }
+}
