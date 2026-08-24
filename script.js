@@ -1,3 +1,52 @@
+// ================= VIDEO MODAL =================
+
+(function () {
+
+    var links = Array.prototype.slice.call(
+        document.querySelectorAll('#projects .project[data-video]')
+    );
+
+    if (!links.length) return;
+
+    var modal = document.getElementById('video-modal');
+    var iframe = document.getElementById('video-modal-iframe');
+    var closeBtn = document.getElementById('video-modal-close');
+
+    function open(videoId) {
+        iframe.setAttribute(
+            'src',
+            'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0'
+        );
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+        modal.classList.remove('active');
+        iframe.setAttribute('src', '');
+        document.body.style.overflow = '';
+    }
+
+    links.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            open(link.getAttribute('data-video'));
+        });
+    });
+
+    closeBtn.addEventListener('click', close);
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) close();
+    });
+
+})();
+
+
 // ================= PHOTO LIGHTBOX =================
 
 (function () {
