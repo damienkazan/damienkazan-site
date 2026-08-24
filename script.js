@@ -15,7 +15,7 @@
     function open(videoId) {
         iframe.setAttribute(
             'src',
-            'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0'
+            'https://www.youtube.com/embed/' + videoId + '?rel=0'
         );
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
