@@ -16,14 +16,23 @@
     var closeBtn = document.getElementById('video-modal-close');
     var fullscreenBtn = document.getElementById('video-modal-fullscreen');
     var muteBtn = document.getElementById('video-modal-mute');
+    var volumeGroup = document.getElementById('video-modal-volume-group');
+    var volumeSlider = document.getElementById('video-modal-volume');
 
-    var HIDE_DELAY = 900; // ms before controls fade out while playing
+    var HIDE_DELAY = 900;   // ms before controls fade out while playing
+    var REVEAL_DELAY = 2500; // ms to keep our poster up after hitting play, so
+                              // YouTube's own start-of-playback chrome (title,
+                              // share/watch-later/related) has time to auto-hide
+                              // behind it before we reveal the video
     var hideTimer = null;
+    var revealTimer = null;
+    var revealed = false;
     var player = null;
     var apiReady = false;
     var pendingAutoplay = false;
     var currentVideoId = null; // video the modal wants to show
     var loadedVideoId = null;  // video actually loaded into the YT player instance
+    var lastVolume = 100;
 
     // --- YouTube IFrame API bootstrap (kicked off once, up front) ---
 
@@ -57,20 +66,44 @@
                 origin: window.location.origin
             },
             events: {
-                onReady: function (e) { e.target.playVideo(); },
+                onReady: onPlayerReady,
                 onStateChange: onPlayerStateChange
             }
         });
         loadedVideoId = videoId;
     }
 
+    function onPlayerReady(e) {
+        e.target.playVideo();
+
+        var vol = e.target.getVolume();
+        if (typeof vol === 'number') {
+            volumeSlider.value = e.target.isMuted() ? 0 : vol;
+            lastVolume = vol || 100;
+        }
+        updateMuteIcon();
+    }
+
     function onPlayerStateChange(e) {
         if (e.data === YT.PlayerState.PLAYING) {
-            frame.classList.remove('paused');
-            frame.classList.add('playing');
-            scheduleHide();
+            if (revealed) {
+                frame.classList.remove('paused');
+                frame.classList.add('playing');
+                scheduleHide();
+            } else {
+                // keep our poster up a little longer: skip past YouTube's
+                // own start-of-playback chrome instead of revealing it
+                clearTimeout(revealTimer);
+                revealTimer = setTimeout(function () {
+                    revealed = true;
+                    frame.classList.remove('paused');
+                    frame.classList.add('playing');
+                    scheduleHide();
+                }, REVEAL_DELAY);
+            }
             updateMuteIcon();
         } else {
+            clearTimeout(revealTimer);
             frame.classList.remove('playing');
             frame.classList.add('paused');
             clearTimeout(hideTimer);
@@ -140,22 +173,67 @@
 
     hit.addEventListener('click', togglePlay);
 
-    // --- mute toggle ---
+    // --- volume + mute ---
 
     function updateMuteIcon() {
         if (!player || typeof player.isMuted !== 'function') return;
-        muteBtn.classList.toggle('is-muted', player.isMuted());
+        muteBtn.classList.toggle('is-muted', player.isMuted() || player.getVolume() === 0);
     }
 
     function toggleMute() {
         if (!player || typeof player.isMuted !== 'function') return;
-        if (player.isMuted()) player.unMute(); else player.mute();
+
+        if (player.isMuted() || player.getVolume() === 0) {
+            player.unMute();
+            player.setVolume(lastVolume || 100);
+            volumeSlider.value = lastVolume || 100;
+        } else {
+            lastVolume = player.getVolume() || lastVolume;
+            player.mute();
+            volumeSlider.value = 0;
+        }
         updateMuteIcon();
     }
 
     muteBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         toggleMute();
+    });
+
+    volumeSlider.addEventListener('input', function (e) {
+        e.stopPropagation();
+        if (!player || typeof player.setVolume !== 'function') return;
+
+        var vol = parseInt(volumeSlider.value, 10);
+
+        player.setVolume(vol);
+
+        if (vol === 0) {
+            player.mute();
+        } else {
+            player.unMute();
+            lastVolume = vol;
+        }
+
+        updateMuteIcon();
+    });
+
+    ['mousedown', 'touchstart'].forEach(function (evt) {
+        volumeSlider.addEventListener(evt, function (e) {
+            e.stopPropagation();
+            volumeGroup.classList.add('active');
+        });
+    });
+
+    ['mouseup', 'touchend'].forEach(function (evt) {
+        volumeSlider.addEventListener(evt, function (e) {
+            e.stopPropagation();
+            volumeGroup.classList.remove('active');
+        });
+    });
+
+    volumeSlider.addEventListener('click', function (e) {
+        e.stopPropagation();
     });
 
     // --- fullscreen ---
@@ -181,6 +259,8 @@
 
     function open(videoId, thumbSrc) {
         currentVideoId = videoId;
+        revealed = false;
+        clearTimeout(revealTimer);
 
         poster.style.backgroundImage = thumbSrc ? 'url(' + thumbSrc + ')' : '';
 
