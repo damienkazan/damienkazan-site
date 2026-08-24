@@ -20,10 +20,10 @@
     var volumeSlider = document.getElementById('video-modal-volume');
 
     var HIDE_DELAY = 900;   // ms before controls fade out while playing
-    var REVEAL_DELAY = 2500; // ms to keep our poster up after hitting play, so
-                              // YouTube's own start-of-playback chrome (title,
-                              // share/watch-later/related) has time to auto-hide
-                              // behind it before we reveal the video
+    var REVEAL_DELAY = 600; // ms to keep our poster up after hitting play, so
+                             // YouTube's own start-of-playback chrome (title,
+                             // share/watch-later/related) has time to auto-hide
+                             // behind it before we reveal the video
     var hideTimer = null;
     var revealTimer = null;
     var revealed = false;
@@ -96,7 +96,7 @@
                 clearTimeout(revealTimer);
                 revealTimer = setTimeout(function () {
                     revealed = true;
-                    frame.classList.remove('paused');
+                    frame.classList.remove('paused', 'loading');
                     frame.classList.add('playing');
                     scheduleHide();
                 }, REVEAL_DELAY);
@@ -104,7 +104,7 @@
             updateMuteIcon();
         } else {
             clearTimeout(revealTimer);
-            frame.classList.remove('playing');
+            frame.classList.remove('playing', 'loading');
             frame.classList.add('paused');
             clearTimeout(hideTimer);
         }
@@ -138,6 +138,8 @@
     // --- play / pause (player created lazily, on the viewer's first click) ---
 
     function ensurePlayerAndPlay() {
+        if (!revealed) frame.classList.add('loading');
+
         if (!apiReady) {
             pendingAutoplay = true;
             return;
@@ -264,7 +266,7 @@
 
         poster.style.backgroundImage = thumbSrc ? 'url(' + thumbSrc + ')' : '';
 
-        frame.classList.remove('playing');
+        frame.classList.remove('playing', 'loading');
         frame.classList.add('paused');
 
         if (player && loadedVideoId && loadedVideoId !== videoId) {

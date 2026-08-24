@@ -1309,6 +1309,15 @@ body.modal-open {
     background: rgba(0, 0, 0, .75);
 }
 
+.video-modal-frame.loading .video-modal-toggle {
+    animation: dk-video-loading 1s ease-in-out infinite;
+}
+
+@keyframes dk-video-loading {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .45; }
+}
+
 .video-modal-fullscreen {
     position: absolute;
 
