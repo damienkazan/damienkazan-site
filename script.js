@@ -13,6 +13,7 @@
     var hit = document.getElementById('video-modal-hit');
     var toggleBtn = document.getElementById('video-modal-toggle');
     var closeBtn = document.getElementById('video-modal-close');
+    var fullscreenBtn = document.getElementById('video-modal-fullscreen');
 
     var HIDE_DELAY = 900; // ms before controls fade out while playing
     var hideTimer = null;
@@ -104,6 +105,25 @@
     }
 
     hit.addEventListener('click', togglePlay);
+
+    // --- fullscreen ---
+
+    function toggleFullscreen() {
+        var isFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+
+        if (isFullscreen) {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        } else {
+            if (frame.requestFullscreen) frame.requestFullscreen();
+            else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+        }
+    }
+
+    fullscreenBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggleFullscreen();
+    });
 
     // --- open / close modal ---
 
