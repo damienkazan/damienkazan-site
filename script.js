@@ -1,3 +1,23 @@
+// ================= DISABLE RIGHT-CLICK ON IMAGES =================
+// Deterrent only (a determined visitor can still get around it via dev
+// tools) but stops the casual right-click > "open image in new tab" /
+// "save image as" that exposes raw file names.
+
+(function () {
+
+    document.querySelectorAll('img').forEach(function (img) {
+        img.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        img.addEventListener('dragstart', function (e) {
+            e.preventDefault();
+        });
+    });
+
+})();
+
+
 // ================= VIDEO MODAL (plain YouTube embed) =================
 
 (function () {
