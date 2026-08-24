@@ -694,18 +694,21 @@
 
     <button id="video-modal-close" class="video-modal-close" aria-label="Close">&times;</button>
 
-    <div class="video-modal-frame">
-        <iframe
-            id="video-modal-iframe"
-            src=""
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen
-        ></iframe>
+    <div class="video-modal-frame" id="video-modal-frame">
+
+        <div id="video-modal-player"></div>
+
+        <div id="video-modal-hit" class="video-modal-hit"></div>
+
+        <button id="video-modal-toggle" class="video-modal-toggle" aria-label="Play / Pause">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"></path></svg>
+        </button>
+
     </div>
 
 </div>
+
 
 
 <!-- ================= PHOTO LIGHTBOX ================= -->

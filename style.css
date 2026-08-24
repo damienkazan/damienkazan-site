@@ -1191,7 +1191,8 @@ body.modal-open {
     aspect-ratio: 16 / 9;
 }
 
-.video-modal-frame iframe {
+.video-modal-frame iframe,
+#video-modal-player {
     position: absolute;
     inset: 0;
 
@@ -1201,6 +1202,82 @@ body.modal-open {
     border-radius: 4px;
 
     box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+
+    pointer-events: none;
+}
+
+.video-modal-hit {
+    position: absolute;
+    inset: 0;
+
+    cursor: pointer;
+}
+
+.video-modal-toggle {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 72px;
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, .55);
+    border: none;
+    border-radius: 50%;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity .15s ease, visibility .15s ease, background .2s ease;
+
+    pointer-events: none;
+}
+
+.video-modal-toggle svg {
+    width: 30px;
+    height: 30px;
+}
+
+.video-modal-toggle .icon-pause {
+    display: none;
+}
+
+.video-modal-frame.paused .video-modal-toggle .icon-play {
+    display: block;
+}
+
+.video-modal-frame.paused .video-modal-toggle .icon-pause {
+    display: none;
+}
+
+.video-modal-frame.playing .video-modal-toggle .icon-play {
+    display: none;
+}
+
+.video-modal-frame.playing .video-modal-toggle .icon-pause {
+    display: block;
+}
+
+.video-modal-frame:hover .video-modal-toggle,
+.video-modal-frame.show-controls .video-modal-toggle,
+.video-modal-frame.paused .video-modal-toggle {
+    opacity: 1;
+    visibility: visible;
+}
+
+.video-modal-toggle:hover {
+    background: rgba(0, 0, 0, .75);
 }
 
 .video-modal-close {

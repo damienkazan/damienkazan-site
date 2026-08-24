@@ -1,4 +1,4 @@
-// ================= VIDEO MODAL =================
+// ================= VIDEO MODAL (custom, chromeless player) =================
 
 (function () {
 
@@ -9,22 +9,127 @@
     if (!links.length) return;
 
     var modal = document.getElementById('video-modal');
-    var iframe = document.getElementById('video-modal-iframe');
+    var frame = document.getElementById('video-modal-frame');
+    var hit = document.getElementById('video-modal-hit');
+    var toggleBtn = document.getElementById('video-modal-toggle');
     var closeBtn = document.getElementById('video-modal-close');
 
+    var HIDE_DELAY = 900; // ms before controls fade out while playing
+    var hideTimer = null;
+    var player = null;
+    var pendingVideoId = null;
+    var apiReady = false;
+
+    // --- YouTube IFrame API bootstrap ---
+
+    var apiTag = document.createElement('script');
+    apiTag.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(apiTag);
+
+    window.onYouTubeIframeAPIReady = function () {
+        apiReady = true;
+        if (pendingVideoId) createPlayer(pendingVideoId);
+    };
+
+    function createPlayer(videoId) {
+        player = new YT.Player('video-modal-player', {
+            videoId: videoId,
+            width: '100%',
+            height: '100%',
+            playerVars: {
+                controls: 0,
+                rel: 0,
+                modestbranding: 1,
+                iv_load_policy: 3,
+                disablekb: 1,
+                cc_load_policy: 0,
+                playsinline: 1,
+                fs: 0,
+                origin: window.location.origin
+            },
+            events: {
+                onStateChange: onPlayerStateChange
+            }
+        });
+    }
+
+    function onPlayerStateChange(e) {
+        if (e.data === YT.PlayerState.PLAYING) {
+            frame.classList.remove('paused');
+            frame.classList.add('playing');
+            scheduleHide();
+        } else {
+            frame.classList.remove('playing');
+            frame.classList.add('paused');
+            clearTimeout(hideTimer);
+        }
+    }
+
+    // --- controls fade ---
+
+    function showControls() {
+        frame.classList.add('show-controls');
+    }
+
+    function scheduleHide() {
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(function () {
+            frame.classList.remove('show-controls');
+        }, HIDE_DELAY);
+    }
+
+    hit.addEventListener('mousemove', function () {
+        showControls();
+        if (frame.classList.contains('playing')) scheduleHide();
+    });
+
+    hit.addEventListener('mouseleave', function () {
+        if (frame.classList.contains('playing')) {
+            clearTimeout(hideTimer);
+            frame.classList.remove('show-controls');
+        }
+    });
+
+    // --- play / pause toggle ---
+
+    function togglePlay() {
+        if (!player || typeof player.getPlayerState !== 'function') return;
+
+        var state = player.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+        } else {
+            player.playVideo();
+        }
+    }
+
+    hit.addEventListener('click', togglePlay);
+
+    // --- open / close modal ---
+
     function open(videoId) {
-        iframe.setAttribute(
-            'src',
-            'https://www.youtube.com/embed/' + videoId + '?rel=0'
-        );
+        frame.classList.remove('playing');
+        frame.classList.add('paused');
+
+        if (!apiReady) {
+            pendingVideoId = videoId;
+        } else if (!player) {
+            createPlayer(videoId);
+        } else {
+            player.loadVideoById(videoId);
+        }
+
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
     }
 
     function close() {
         modal.classList.remove('active');
-        iframe.setAttribute('src', '');
         document.body.style.overflow = '';
+
+        if (player && typeof player.stopVideo === 'function') {
+            player.stopVideo();
+        }
     }
 
     links.forEach(function (link) {
@@ -41,7 +146,10 @@
     });
 
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) close();
+        if (!modal.classList.contains('active')) return;
+
+        if (e.key === 'Escape') close();
+        if (e.key === ' ') { e.preventDefault(); togglePlay(); }
     });
 
 })();
