@@ -281,7 +281,7 @@ nav {
 ======================================= */
 
 #projects,
-#motion-posters {
+#photography {
     width: 100% !important;
 
     padding: 60px 8% 80px !important;
@@ -292,7 +292,7 @@ nav {
 }
 
 #projects .section-title,
-#motion-posters .section-title {
+#photography .section-title {
     margin-top: 0 !important;
 
     margin-bottom: 40px !important;

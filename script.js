@@ -73,7 +73,7 @@
 (function () {
 
     var links = Array.prototype.slice.call(
-        document.querySelectorAll('#motion-posters .project')
+        document.querySelectorAll('#photography .project')
     );
 
     if (!links.length) return;
