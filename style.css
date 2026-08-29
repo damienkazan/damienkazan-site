@@ -374,6 +374,12 @@ nav {
     object-fit: unset;
 }
 
+/* Let one photo take the whole row width by itself, spanning all
+   three grid columns instead of sitting in a single column. */
+.grid .project.project-wide {
+    grid-column: 1 / -1;
+}
+
 /* Sandwich two 16:9 thumbnails into one column, stacked, so they sit
    next to a full-height vertical photo without leaving a gap below
    them. On mobile the grid is single-column already, so this just
