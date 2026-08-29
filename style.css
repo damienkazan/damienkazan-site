@@ -360,6 +360,20 @@ nav {
     object-position: center;
 }
 
+/* Exception: keep this photo at its full, uncropped height like the
+   thumbnails past the first 18, even though it falls within them. */
+.grid .project.project-full {
+    aspect-ratio: auto;
+}
+
+.grid .project.project-full img {
+    width: 100%;
+
+    height: auto;
+
+    object-fit: unset;
+}
+
 .project-overlay h3 {
     font-size: 24px;
 }
