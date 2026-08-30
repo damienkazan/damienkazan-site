@@ -380,6 +380,15 @@ nav {
     grid-column: 1 / -1;
 }
 
+/* Let one photo take up two of the three columns, so it can share a
+   row with a single normal-width photo instead of three. Desktop
+   grid only; on mobile the grid is already single-column. */
+@media (min-width: 901px) {
+    .grid .project.project-double {
+        grid-column: span 2;
+    }
+}
+
 /* Sandwich two 16:9 thumbnails into one column, stacked, so they sit
    next to a full-height vertical photo without leaving a gap below
    them. On mobile the grid is single-column already, so this just
