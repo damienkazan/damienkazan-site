@@ -68,6 +68,63 @@
 })();
 
 
+// ================= CONTACT FORM (AJAX, stays on-site) =================
+
+(function () {
+
+    var form = document.getElementById('contact-form');
+
+    if (!form) return;
+
+    var successMsg = document.getElementById('form-success-msg');
+    var errorMsg = document.getElementById('form-error-msg');
+    var button = form.querySelector('button[type="submit"]');
+    var buttonDefaultText = button ? button.textContent : '';
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        errorMsg.classList.remove('show');
+        successMsg.classList.remove('show');
+
+        if (button) {
+            button.disabled = true;
+            button.textContent = 'SENDING...';
+        }
+
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    form.reset();
+
+                    Array.prototype.forEach.call(
+                        form.querySelectorAll('label, button'),
+                        function (el) { el.style.display = 'none'; }
+                    );
+
+                    successMsg.classList.add('show');
+                } else {
+                    errorMsg.classList.add('show');
+                }
+            })
+            .catch(function () {
+                errorMsg.classList.add('show');
+            })
+            .then(function () {
+                if (button) {
+                    button.disabled = false;
+                    button.textContent = buttonDefaultText;
+                }
+            });
+    });
+
+})();
+
+
 // ================= PHOTO LIGHTBOX =================
 
 (function () {

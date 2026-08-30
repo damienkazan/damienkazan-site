@@ -721,11 +721,27 @@ nav {
 
     text-align: center;
 
-    font-size: 14px;
+    font-size: 15px;
 
     line-height: 1.5;
 
     margin-top: 5px;
+
+    padding: 16px 20px;
+
+    border: 1px solid;
+}
+
+.form-success {
+    color: #fff;
+
+    border-color: #fff;
+}
+
+.form-error {
+    color: #ff6b6b;
+
+    border-color: #ff6b6b;
 }
 
 .form-success.show,
